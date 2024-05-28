@@ -16,10 +16,8 @@ func Bind(port int) {
 
 	route.Use(cros)
 	route.Use(panicError)
-	// TODO more ...
-
 	addr := ":" + strconv.Itoa(port)
-	logger.Info(fmt.Sprintf("server start by http://0.0.0.0%s/v1", addr))
+	logger.Infof("server start by http://0.0.0.0%s", addr)
 	if err := route.Run(addr); err != nil {
 		logger.Fatal(err)
 	}
