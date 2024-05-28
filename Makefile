@@ -5,12 +5,9 @@ DIR := $(shell pwd)
 LDFLAGS := -ldflags "-w -s -X ${PROJECT}/vars.Version=${VERSION} -X ${PROJECT}/vars.Project=${PROJECT} -X ${PROJECT}/vars.ProjectDir=${DIR}"
 TARGET_EXEC := server
 
-.PHONY: echo all clean setup build-linux build-osx build-windows copy
+.PHONY: all clean setup build-linux build-osx build-windows copy
 
-all: echo clean setup build-linux build-osx build-windows copy
-
-echo:
-	@echo ${LDFLAGS}
+all: clean setup build-linux build-osx build-windows copy
 
 clean:
 	rm -rf bin

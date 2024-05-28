@@ -2,6 +2,7 @@ package main
 
 import (
 	"gin-template/internal/common"
+	"gin-template/internal/gin.router"
 	"gin-template/logger"
 	"gin-template/vars"
 	"github.com/sirupsen/logrus"
@@ -21,7 +22,7 @@ var (
 		Run: func(cmd *cobra.Command, args []string) {
 			common.InitCommon()
 			logger.InitLogger(logPath, LogLevel())
-			// TODO -
+			router.Bind(port)
 		},
 	}
 )
