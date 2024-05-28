@@ -1,12 +1,16 @@
 BUILD_ENV := CGO_ENABLED=0
-BUILD=`date +%FT%T%z`
-LDFLAGS=-ldflags "-w -s -X main.Version=${VERSION} -X main.Build=${BUILD}"
-
+PROJECT := $(shell go list -m)
+VERSION := $(shell cat VERSION)
+DIR := $(shell pwd)
+LDFLAGS := -ldflags "-w -s -X ${PROJECT}/vars.Version=${VERSION} -X ${PROJECT}/vars.Project=${PROJECT} -X ${PROJECT}/vars.ProjectDir=${DIR}"
 TARGET_EXEC := server
 
-.PHONY: all clean setup build-linux build-osx build-windows copy
+.PHONY: echo all clean setup build-linux build-osx build-windows copy
 
-all: clean setup build-linux build-osx build-windows copy
+all: echo clean setup build-linux build-osx build-windows copy
+
+echo:
+	@echo ${LDFLAGS}
 
 clean:
 	rm -rf bin

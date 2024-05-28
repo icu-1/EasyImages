@@ -3,22 +3,21 @@ package main
 import (
 	"gin-template/internal/common"
 	"gin-template/logger"
+	"gin-template/vars"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
 var (
-	version  = "v2.1.0"
 	port     int
 	logLevel = "info"
 	logPath  = "log"
 
 	cmd = &cobra.Command{
-		Use:   "ChatGPT-Adapter",
-		Short: "GPT接口适配器",
-		Long: "GPT接口适配器。统一适配接口规范，集成了bing、claude-2，gemini...\n" +
-			"项目地址：https://github.com/bincooo/chatgpt-adapter",
-		Version: version,
+		Short:   "GIN 模版",
+		Long:    "项目地址：https://github.com/xxx/gin-template",
+		Use:     vars.Project,
+		Version: vars.Version,
 		Run: func(cmd *cobra.Command, args []string) {
 			common.InitCommon()
 			logger.InitLogger(logPath, LogLevel())
