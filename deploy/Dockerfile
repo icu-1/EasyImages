@@ -1,7 +1,7 @@
 FROM golang:1.20-alpine AS builder
 
 WORKDIR /app
-RUN apk add git && git clone https://github.com/bincooo/gin-template.git .
+RUN apk add git && git clone https://github.com/icu-1/EasyImages.git .
 RUN make build-linux
 
 FROM alpine:3.19.0
