@@ -15,7 +15,7 @@ import (
 )
 
 var (
-	project    = "github.com/bincooo/chatgpt-adapter"
+	project    = "gin-template"
 	projectDir = ""
 )
 

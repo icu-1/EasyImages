@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/bincooo/chatgpt-adapter/internal/common"
-	"github.com/bincooo/chatgpt-adapter/logger"
+	"gin-template/internal/common"
+	"gin-template/logger"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

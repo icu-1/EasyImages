@@ -2,7 +2,7 @@ package handler
 
 import (
 	"fmt"
-	"github.com/bincooo/chatgpt-adapter/logger"
+	"gin-template/logger"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"net/http"
