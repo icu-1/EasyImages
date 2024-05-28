@@ -1,4 +1,4 @@
-module gin-template
+module easy-images
 
 go 1.21.6
 

@@ -1,10 +1,11 @@
 package main
 
 import (
-	"gin-template/internal/common"
-	"gin-template/internal/gin.router"
-	"gin-template/logger"
-	"gin-template/vars"
+	"easy-images/config"
+	"easy-images/internal/common"
+	"easy-images/internal/gin.router"
+	"easy-images/logger"
+	"easy-images/vars"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
@@ -21,6 +22,7 @@ var (
 		Version: vars.Version,
 		Run: func(cmd *cobra.Command, args []string) {
 			common.InitCommon()
+			config.InitConfig()
 			logger.InitLogger(logPath, LogLevel())
 			router.Bind(port)
 		},

@@ -1,5 +1,7 @@
 package common
 
+import "os"
+
 var initFunctions = make([]func(), 0)
 
 func InitCommon() {
@@ -10,4 +12,9 @@ func InitCommon() {
 
 func AddInitialized(apply func()) {
 	initFunctions = append(initFunctions, apply)
+}
+
+func FileExists(path string) bool {
+	_, err := os.Stat(path)
+	return os.IsExist(err)
 }

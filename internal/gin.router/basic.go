@@ -1,8 +1,12 @@
 package router
 
 import (
+	"bytes"
+	"easy-images/config"
+	"easy-images/internal/common"
+	"easy-images/internal/handler"
+	"easy-images/logger"
 	"fmt"
-	"gin-template/logger"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"net/http"
@@ -16,6 +20,8 @@ func Bind(port int) {
 
 	route.Use(cros)
 	route.Use(panicError)
+	route.POST("/upload", upload)
+	route.Static("/images", "images")
 	addr := ":" + strconv.Itoa(port)
 	logger.Infof("server start by http://0.0.0.0%s", addr)
 	if err := route.Run(addr); err != nil {
@@ -69,4 +75,46 @@ func panicError(ctx *gin.Context) {
 
 	//处理请求
 	ctx.Next()
+}
+
+func upload(ctx *gin.Context) {
+	token := ctx.GetHeader("Authorization")
+	uploadToken := config.Config.GetString("TOKEN")
+	if token != "Bearer "+uploadToken {
+		common.Error(ctx, http.StatusUnauthorized, "Unauthorized")
+		return
+	}
+
+	if err := ctx.Request.ParseMultipartForm(10 << 20); err != nil {
+		common.Error(ctx, -1, err)
+		return
+	}
+
+	image, err := ctx.FormFile("image")
+	if err != nil {
+		common.Error(ctx, -1, err)
+		return
+	}
+
+	file, err := image.Open()
+	if err != nil {
+		common.Error(ctx, -1, err)
+		return
+	}
+
+	buffer := new(bytes.Buffer)
+	if _, err := buffer.ReadFrom(file); err != nil {
+		common.Error(ctx, -1, err)
+		return
+	}
+
+	path, err := handler.Handler(buffer.Bytes(), image.Filename)
+	if err != nil {
+		common.Error(ctx, -1, err)
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"URL": config.Config.GetString("DOMAIN") + "/" + path,
+	})
 }

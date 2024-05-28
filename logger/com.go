@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"gin-template/vars"
+	"easy-images/vars"
 	nested "github.com/antonfisher/nested-logrus-formatter"
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	"github.com/sirupsen/logrus"
