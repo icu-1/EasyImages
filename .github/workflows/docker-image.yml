@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 1
       - name: Install Dependencies
         run: |
-          sudo apt update && sudo apt install -y nodejs npm
+          sudo apt update && sudo apt install -y golang
       - name: Set up QEMU (optional)
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -34,8 +34,8 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: bincooo
-          password: ${{ secrets.golbal }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GOLBAL }}
       - name: Set DOCKER_REPO_TAGGED based on branch or tag
         run: |
           if [[ "${{ github.ref_name }}" == "main" ]]; then
