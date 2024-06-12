@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"os"
 	"path/filepath"
+	"time"
 )
 
 var (
@@ -17,7 +18,8 @@ func Handler(buffer []byte, filename string) (string, error) {
 	hasher.Write(buffer)
 	fileMD5 := hex.EncodeToString(hasher.Sum(nil))
 
-	filePath := filepath.Join(storagePath, fileMD5+filepath.Ext(filename))
+	timePath := time.Now().Format("2006/01/02")
+	filePath := filepath.Join(storagePath, timePath, fileMD5+filepath.Ext(filename))
 	if common.FileExists(filePath) {
 		return filePath, nil
 	}
