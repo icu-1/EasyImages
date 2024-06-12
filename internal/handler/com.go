@@ -24,8 +24,8 @@ func Handler(buffer []byte, filename string) (string, error) {
 		return filePath, nil
 	}
 
-	if !common.FileExists(storagePath) {
-		_ = os.MkdirAll(storagePath, 0744)
+	if !common.FileExists(filepath.Join(storagePath, timePath)) {
+		_ = os.MkdirAll(filepath.Join(storagePath, timePath), 0744)
 	}
 
 	localFile, err := os.Create(filePath)
